@@ -1,0 +1,70 @@
+<div class="container mt-4">
+  <div class="row">
+    <h2>{{user?.username}}'s profile</h2>
+  </div>
+  <div class="row">
+    <div class="col-sm-4 max-height:300px">
+      <div class="card">
+        <img class="card-img-top img-thumbnail" src="{{user?.filePath}}" alt="user?.username">
+        <div class="card-body">
+          <div>
+            <strong>Location:</strong>
+            <p>{{user?.city}}, {{user?.country}}</p>
+          </div>
+          <div>
+            <strong>Age:</strong>
+            <p>{{user?.dateOfBirth}}</p>
+          </div>
+          <div>
+            <strong>Member since:</strong>
+            <p>{{ user?.createdAt|date}}</p>
+          </div>
+        </div>
+        <div class="footer">
+          <div class="btn-group d-flex">
+            <button class="btn btn-primary w-100">Like</button>
+            <button class="btn btn-success w-100">Message</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-sm-8">
+      <div class="tab-panel">
+        <div class="container">
+          <ul class="nav nav-tabs">
+            <li class="active"><a data-toggle="tab" href="#tab1">About {{user?.username}}</a></li>
+            <li><a data-toggle="tab" href="#tab2">Bills</a></li>
+            <li><a data-toggle="tab" href="#tab3">Photos</a></li>
+            <li><a data-toggle="tab" href="#tab4">Messages</a></li>
+          </ul>
+
+          <div class="tab-content">
+            <div id="tab1" class="tab-pane fade in active">
+              <h4>Introduction:</h4>
+              <p>{{user?.introduction}}</p>
+              <h4>Looking for:</h4>
+              <p>{{user?.lookingFor}}</p>
+              <h4>Interests:</h4>
+              <p>{{user?.interests}}</p>
+            </div>
+            <div id="tab2" class="tab-pane fade">
+              <h4>Bill:</h4>
+              <p>{{bills?.billSerialNumber}}</p>
+            </div>
+            <div id="tab3" class="tab-pane fade">
+              <p>photos will go here</p>
+
+            </div>
+            <div id="tab4" class="tab-pane fade">
+              <p>messages will go</p>
+            </div>
+          </div>
+        </div>
+
+
+
+      </div>
+    </div>
+  </div>
+</div>
