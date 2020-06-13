@@ -1,40 +1,42 @@
-
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <a class="navbar-brand" [routerLink]="['/userlist']" >Notes</a>
+  <a class="navbar-brand" [routerLink]="['/userlist']">Notes</a>
   <div class="class"></div>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item" routerLinkActive="active" >
-        <a class="nav-link" [routerLink]="['/userlist']"  >Userlist <span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item" routerLinkActive="active">
-        <a class="nav-link" [routerLink]="['/list']">list</a>
-      </li>
-      <li class="nav-item" routerLinkActive="active">
-        <a class="nav-link " [routerLink]="['/messages']">messages</a>
-      </li>
-    </ul>
+  <ul class="navbar-nav mr-auto">
+    <li class="nav-item" routerLinkActive="active">
+      <a class="nav-link" [routerLink]="['/userlist']">Userlist <span class="sr-only">(current)</span></a>
+    </li>
+    <li class="nav-item" routerLinkActive="active">
+      <a class="nav-link" [routerLink]="['/list']">list</a>
+    </li>
+    <li class="nav-item" routerLinkActive="active">
+      <a class="nav-link " [routerLink]="['/messages']">messages</a>
+    </li>
+  </ul>
 
-<div class="dropdown" *ngIf="loggedIn()">
-  <a class="dopdown-toggle  text-light" data-toggle="dropdown"  >
-    Welcome {{authService?.decodedToken?.sub |titlecase}}
-  </a>
-  <div class="dropdown-menu">
-    <a class="dropdown-item" [routerLink]="['/users/edit',id]"><i class = "fa fa-user"></i> Edit Profile</a>
-    <div class="dropdown-divider"></div>
-    <a class="dropdown-item" href="#" (click)="loggedOut()"> <i class = "fa fa-sign-out"></i>Logout</a>
+  <div class="dropdown" *ngIf="loggedIn()">
+    <a class="dopdown-toggle  text-light" data-toggle="dropdown">
+      Welcome {{authService?.decodedToken?.sub |titlecase}}
+    </a><span class="caret"></span>
+    <div class="dropdown-menu">
+      <a class="dropdown-item" [routerLink]="['/users/edit',id]"><i class="fa fa-user"></i> Edit Profile</a>
+      <div class="dropdown-divider"></div>
+      <a class="dropdown-item" href="#" (click)="loggedOut()"> <i class="fa fa-sign-out"></i>Logout</a>
+    </div>
+
   </div>
 
-</div>
 
 
-
-    <form *ngIf="!loggedIn()" class="form-inline my-2 my-lg-0" #loginForm="ngForm" (ngSubmit) = "login()">
-      <input class="form-control mr-sm-2" type="search" placeholder="username"  name = "username" required [(ngModel)]="data.username" >
-      <input class="form-control mr-sm-2" type="password" placeholder="password" name = "password" required [(ngModel)]="data.password">
-      <button [disabled] = "!loginForm.valid" class="btn btn-success my-2 my-sm-0" type="submit">Login</button>
-    </form>
+  <form *ngIf="!loggedIn()" class="form-inline my-2 my-lg-0" #loginForm="ngForm" (ngSubmit)="login()">
+    <input class="form-control mr-sm-2" type="search" placeholder="username" name="username" required
+      [(ngModel)]="data.username">
+    <input class="form-control mr-sm-2" type="password" placeholder="password" name="password" required
+      [(ngModel)]="data.password">
+    <button [disabled]="!loginForm.valid" class="btn btn-success my-2 my-sm-0" type="submit">Login</button>
+  </form>
 
 </nav>
