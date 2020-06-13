@@ -2,13 +2,13 @@ import { Component, OnInit } from "@angular/core";
 import { UserService } from "src/app/_services/user.service";
 import { User } from "src/app/_models/user";
 import { ActivatedRoute, Router } from "@angular/router";
-import { AuthService } from "src/app/_services/auth.service";
+import { AuthenticationService } from "src/app/_services/auth.service";
 import { PaginatedResult, Pagination } from "src/app/_models/pagination";
 
 @Component({
   selector: "app-userlist",
   templateUrl: "./userlist.component.html",
-  styleUrls: ["./userlist.component.css"]
+  styleUrls: ["./userlist.component.css"],
 })
 export class UserlistComponent implements OnInit {
   users: User[];
@@ -17,12 +17,12 @@ export class UserlistComponent implements OnInit {
     last: false,
     totalPages: 0,
     size: 4,
-    number: 0
+    number: 0,
   };
   constructor(
     private userService: UserService,
     private route: ActivatedRoute,
-    private auth: AuthService,
+    private auth: AuthenticationService,
     private router: Router
   ) {}
 
@@ -38,7 +38,7 @@ export class UserlistComponent implements OnInit {
   loadUsers() {
     this.userService
       .getUsers(this.pagination.number, this.pagination.size)
-      .subscribe(rez => {
+      .subscribe((rez) => {
         console.log(rez);
         this.users = rez.content;
         this.pagination = rez.pageable;
@@ -54,12 +54,12 @@ export class UserlistComponent implements OnInit {
   pageChanged(event: any): void {
     console.log(event);
     this.userService.getUsers(event.page - 1, event.itemsPerPage).subscribe({
-      next: res => {
+      next: (res) => {
         this.users = res.content;
       },
-      error: e => {
+      error: (e) => {
         console.log(e);
-      }
+      },
     });
     this.pagination.number = event.page;
     // this.router.navigate([]);

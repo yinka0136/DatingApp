@@ -1,11 +1,11 @@
 import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
-import { AuthService } from "../_services/auth.service";
+import { AuthenticationService } from "../_services/auth.service";
 import { AlertifyService } from "../_services/alertify.service";
 import {
   FormGroup,
   FormControl,
   Validators,
-  FormBuilder
+  FormBuilder,
 } from "@angular/forms";
 import { BsDatepickerConfig } from "ngx-bootstrap/datepicker/public_api";
 import { Router } from "@angular/router";
@@ -14,7 +14,7 @@ import { User } from "../_models/user";
 @Component({
   selector: "app-register",
   templateUrl: "./register.component.html",
-  styleUrls: ["./register.component.css"]
+  styleUrls: ["./register.component.css"],
 })
 export class RegisterComponent implements OnInit {
   bsConfig: Partial<BsDatepickerConfig>;
@@ -24,7 +24,7 @@ export class RegisterComponent implements OnInit {
   user: User;
 
   constructor(
-    private auth: AuthService,
+    private auth: AuthenticationService,
     private alert: AlertifyService,
     private fb: FormBuilder,
     private route: Router
@@ -32,7 +32,7 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit(): void {
     (this.bsConfig = {
-      containerClass: "theme-red"
+      containerClass: "theme-red",
     }),
       this.createRegisterForm();
     // this.registerForm = new FormGroup({
@@ -56,10 +56,10 @@ export class RegisterComponent implements OnInit {
           [
             Validators.required,
             Validators.minLength(4),
-            Validators.maxLength(8)
-          ]
+            Validators.maxLength(8),
+          ],
         ],
-        confirmPassword: ["", Validators.required]
+        confirmPassword: ["", Validators.required],
       },
       { validator: this.passwordMatchValidator }
     );
@@ -78,16 +78,16 @@ export class RegisterComponent implements OnInit {
       delete payload.confirmPassword;
       console.log(payload);
       this.auth.register(payload).subscribe(
-        next => {
+        (next) => {
           this.alert.success("registration successful");
         },
-        error => {
+        (error) => {
           this.alert.error(
             "Registration failed please ensure that you fill the form correctly"
           );
         },
         () => {
-          this.auth.login(payload).subscribe(next => {
+          this.auth.login(payload).subscribe((next) => {
             this.route.navigate(["/userlist"]);
           });
         }

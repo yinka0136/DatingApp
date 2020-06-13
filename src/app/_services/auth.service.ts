@@ -8,7 +8,7 @@ import { User } from "../_models/user";
 @Injectable({
   providedIn: "root",
 })
-export class AuthService {
+export class AuthenticationService {
   baseUrl = environment.apiUrl;
   jwtHelper = new JwtHelperService();
   decodedToken: any;

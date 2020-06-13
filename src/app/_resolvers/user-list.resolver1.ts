@@ -5,7 +5,7 @@ import { UserService } from "../_services/user.service";
 import { AlertifyService } from "../_services/alertify.service";
 import { Observable, of } from "rxjs";
 import { catchError } from "rxjs/operators";
-import { AuthService } from "../_services/auth.service";
+import { AuthenticationService } from "../_services/auth.service";
 
 @Injectable()
 export class UserListResolver implements Resolve<User[]> {
@@ -15,12 +15,12 @@ export class UserListResolver implements Resolve<User[]> {
     private userService: UserService,
     private router: Router,
     private alertify: AlertifyService,
-    private auth: AuthService
+    private auth: AuthenticationService
   ) {}
 
   resolve(route: ActivatedRouteSnapshot): Observable<User[]> {
     return this.userService.getUsers(this.page, this.size).pipe(
-      catchError(error => {
+      catchError((error) => {
         this.alertify.error("An error occured while fetching your data");
         this.router.navigate(["/home"]);
         return of(null);

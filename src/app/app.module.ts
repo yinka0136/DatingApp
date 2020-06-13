@@ -27,6 +27,27 @@ import { FileUploadModule } from "ng2-file-upload";
 import { CommonModule } from "@angular/common";
 import { UserDetailsComponent } from "./user/user-details/user-details.component";
 import { PaginationModule } from "ngx-bootstrap/pagination";
+import { SocialLoginModule, AuthServiceConfig } from "angularx-social-login";
+import {
+  GoogleLoginProvider,
+  FacebookLoginProvider,
+} from "angularx-social-login";
+let config = new AuthServiceConfig([
+  {
+    id: GoogleLoginProvider.PROVIDER_ID,
+    provider: new GoogleLoginProvider(
+      "648266134944-pbb0c4elfgnt1ka81m47pmlmgl8jtb4b.apps.googleusercontent.com"
+    ),
+  },
+  {
+    id: FacebookLoginProvider.PROVIDER_ID,
+    provider: new FacebookLoginProvider("1061592434258551"),
+  },
+]);
+
+export function provideConfig() {
+  return config;
+}
 // import { UserEditResolver } from './_resolvers/user-edit.resolver ';
 // import {NgxGalleryModule} from 'ngx-gallery';
 
@@ -43,7 +64,7 @@ import { PaginationModule } from "ngx-bootstrap/pagination";
     MessagesComponent,
     UserCardComponent,
     PhotoEditorComponent,
-    UserDetailsComponent
+    UserDetailsComponent,
   ],
 
   imports: [
@@ -51,12 +72,13 @@ import { PaginationModule } from "ngx-bootstrap/pagination";
     BrowserAnimationsModule,
     BrowserModule,
     HttpClientModule,
+    SocialLoginModule,
     FormsModule,
     ReactiveFormsModule,
     BsDatepickerModule.forRoot(),
     PaginationModule.forRoot(),
     RouterModule.forRoot(appRoute),
-    FileUploadModule
+    FileUploadModule,
     // NgxGalleryModule
   ],
 
@@ -66,10 +88,14 @@ import { PaginationModule } from "ngx-bootstrap/pagination";
     AuthguardGuard,
     UserService,
     AlertifyService,
-    PreventUnsavedChanges
+    PreventUnsavedChanges,
+    {
+      provide: AuthServiceConfig,
+      useFactory: provideConfig,
+    },
 
     // {provide: HTTP_INTERCEPTORS,useClass:  ErrorInterceptor , multi:true}
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule {}
